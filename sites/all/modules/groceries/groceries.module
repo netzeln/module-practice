@@ -11,12 +11,12 @@ function groceries_menu() {
     return $items;
 }
 
-function groceries_display() {
+function list_of_groceries(){
     $grocery_list = array(
             'eggs' => array(
                 'price' => 3.20,
                 'quantity' => 1,
-                'expired' => FALSE,
+                'expired' => TRUE,
             ),
             'milk' => array(
                 'price' => 2.20,
@@ -29,14 +29,35 @@ function groceries_display() {
                 'expired' => TRUE,
             ),
         );
-    $app = '';
-    foreach ($grocery_list as $grocery_list_item_name => $grocery_list_item_value) {
+    return $grocery_list;
+}
 
-        $app = $app.'<h3>' . $grocery_list_item_name . '</h3>
-            <ul>
-                <li>'.$grocery_list[$grocery_list_item_name]['price'].'</li>
-                <li>'. $grocery_list[$grocery_list_item_name]['quantity'].'</li>
-                </ul>';
+function total_price_per_grocery($price, $quantity) {
+    return $price * $quantity;
+}
+
+function total_price() {
+    $grocery_list = list_of_groceries();
+    $total = 0;
+    foreach ($grocery_list as $grocery_list_item_name => $grocery_list_item_value) {
+        $total = $total + $grocery_list_item_value['price'] * $grocery_list_item_value['quantity'];
+    }
+    return $total;
+}
+
+function groceries_display() {
+    $app = '';
+    $grocery_list = list_of_groceries();
+    $total = total_price();
+    foreach ($grocery_list as $grocery_list_item_name => $grocery_list_item_value) {
+        $app = $app.'<h3>' . $grocery_list_item_name . '</h3><ul>';
+        foreach($grocery_list_item_value as $grocery_property_key => $grocery_property_value) {
+            $grocery_property_key;
+        $app = $app.'<li>'.$grocery_property_key.': '.$grocery_property_value.'</li>';
+    }
+    $app = $app . '<li>' . total_price_per_grocery($grocery_list_item_value['price'],              $grocery_list_item_value['quantity']). '</li>';
+
+    $app = $app.'</ul><br>Total Price of All Groceries: '.$total;
     }
     return $app;
 
