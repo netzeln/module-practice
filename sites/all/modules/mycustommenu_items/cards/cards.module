@@ -7,7 +7,7 @@ function cards_menu(){
                 'title'=> $friend,
                 'access callback'=> TRUE,
                 'page callback'=> "cards",
-                'page arguments'=> array(1),
+                'page arguments'=> array($friend),
                 'type'=> MENU_NORMAL_ITEM,
         );
     }
@@ -20,7 +20,7 @@ function friend_list(){
 }
 
 function cards($args){
-        var_dump($args);
-        $friend = $args;
-            return 'hi ' . $friend;
+        // var_dump($args);
+        // $friend = $args;
+            return 'hi ' . $args;
         }
