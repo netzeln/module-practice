@@ -56,9 +56,9 @@ function groceries_display() {
         $app = $app.'<li>'.$grocery_property_key.': '.$grocery_property_value.'</li>';
     }
     $app = $app . '<li>' . total_price_per_grocery($grocery_list_item_value['price'],              $grocery_list_item_value['quantity']). '</li>';
-
-    $app = $app.'</ul><br>Total Price of All Groceries: '.$total;
+    $app .= '</ul>';
     }
+    $app = $app . '<br>Total Price of All Groceries: '.$total;
     return $app;
 
 }
