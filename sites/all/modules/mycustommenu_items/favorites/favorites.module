@@ -7,7 +7,7 @@ function favorites_menu(){
                 'title'=> $favorite_key,
                 'access callback'=> TRUE,
                 'page callback'=> "favorites",
-                'page arguments'=> array(1),
+                'page arguments'=> array($favorite_value),
                 'type'=> MENU_NORMAL_ITEM,
         );
     }
@@ -24,16 +24,10 @@ function favorites_list(){
     return $favorites;
 }
 
-function favorites($args){
+function favorites($favorite_value){
     $app = '<ul>';
-    $favorites = favorites_list();
-    foreach ($favorites as $favorite_key => $favorite_value) {
-        if ($favorite_key === $args) {
-            foreach($favorite_value as $value) {
-                $app .= "<li>$value</li>";
-            }
-        }
+    foreach($favorite_value as $favorite) {
+        $app .= '<li>'.$favorite.'</li>';
     }
-    $app .= '</ul>';
-    return $app;
+    return $app .= '</ul>';
 }

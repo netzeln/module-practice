@@ -13,6 +13,6 @@
     function pet_info_display(){
         return '<h2> This was Fluffy</h2>
                 <p> She was a good dog.</p>
-                <img src="sites/all/modules/pets/fluffy.jpg" alt="Fluffy Picture">
+                <img src="sites/all/modules/mycustommenu_items/pets/fluffy.jpg" alt="Fluffy Picture">
                 <a href="/dogs">More information about Dogs</a>';
     }
