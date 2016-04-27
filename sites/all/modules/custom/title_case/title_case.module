@@ -1,6 +1,6 @@
 <?php
 
-function title_case_menu() {
+function title_case_menu(){
     $items['title_case'] = array(
         'title' => 'Title Case',
         'page callback' => 'drupal_get_form',
