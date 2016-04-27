@@ -28,6 +28,11 @@ function clock_distance_form(){
         '#type'=> 'textfield',
         '#description' => t('Enter the time for the Minute Hand (0-59)'),
     );
+    $form['second_hand'] = array(
+        '#title' => 'Seconds',
+        '#type'=> 'textfield',
+        '#description' => t('Enter the time for the Seconds Hand (0-59)'),
+    );
     $form['submit'] = array(
         '#type' => 'submit',
         '#value' => 'Get the Angle',
@@ -38,11 +43,12 @@ function clock_distance_form(){
 function clock_distance_form_submit($form, &$form_state){
     $hour = $form_state['values']['hour_hand'];
     $minute = $form_state['values']['minute_hand'];
+    $second = $form_state['values']['second_hand'];
 
-    $minute_degrees = $minute * 6;
+    $minute_degrees = ($minute * 6) + ($second/10);
     $hour_degrees = 0;
     if ($hour === 12){
-        $hour_degrees = $minute/2;
+        $hour_degrees = $minute_degrees;
     }else{
         $hour_degrees = ($hour * 30) + ($minute/2);
     }
@@ -55,7 +61,7 @@ function clock_distance_form_submit($form, &$form_state){
 
     if($difference > 180){
         $difference = 360 - $difference;
-    } 
+    }
     $_SESSION['clock_distance_output'] = $difference;
     $form_state['redirect'] = 'clock_distance_result';
 }
