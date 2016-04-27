@@ -11,6 +11,7 @@ features[features_api][] = api:2
 features[menu_custom][] = menu-my-menu-module
 features[menu_links][] = navigation_favorite-pet:pet_display
 features[menu_links][] = navigation_my-groceries:groceries_list
+features[user_role][] = administrator
 features[variable][] = admin_theme
 features[variable][] = site_name
 features[variable][] = theme_default
