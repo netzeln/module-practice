@@ -35,7 +35,7 @@ function clock_distance_form(){
     );
     $form['submit'] = array(
         '#type' => 'submit',
-        '#value' => 'Get the Angle',
+        '#value' => 'Get the Angle Between the Hour and Minute Hands',
     );
      return $form;
 }
@@ -48,9 +48,10 @@ function clock_distance_form_submit($form, &$form_state){
     $minute_degrees = ($minute * 6) + ($second/10);
     $hour_degrees = 0;
     if ($hour === 12){
-        $hour_degrees = $minute_degrees;
+        $hour_degrees = (($minute*60 + $second)/120);
     }else{
-        $hour_degrees = ($hour * 30) + ($minute/2);
+        // $hour_degrees = ($hour * 30) + ($minute/2);
+        $hour_degrees = ($hour * 30) + (($minute*60 + $second)/120);
     }
 
     if($hour_degrees > $minute_degrees){
