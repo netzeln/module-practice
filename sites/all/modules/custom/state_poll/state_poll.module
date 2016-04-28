@@ -1,0 +1,110 @@
+<?php
+global $states;
+$states = array(
+    'al' => 'alabamba',
+    'ak' => 'alaska',
+    'wa' => 'washington',
+    'hi' => 'hawaii',
+    'or' => 'oregon',
+    'ca' => 'california',
+    'id' => 'idaho',
+    'mt' => 'montana',
+    'wy' => 'wyoming',
+    'co' => 'colorado',
+    'nv' => 'nevada',
+    'ut' => 'utah',
+    'az' => 'arizona',
+    'nm' => 'new mexico',
+    'tx' => 'texas',
+    'ok' => 'oklahoma',
+    'ks' => 'kansas',
+    'ne' => 'nebraska',
+    'sd' => 'south dakota',
+    'nd' => 'north dakota',
+    'mn' => 'minnesota',
+    'ia' => 'iowa',
+    'mo' => 'missouri',
+    'ak' => 'arkansas',
+    'la' => 'louisiana',
+    'mi' => 'mississippi',
+    'tn' => 'tennessee',
+    'ky' => 'kentucky',
+    'il' => 'illinois',
+    'in' => 'indiana',
+    'wi' => 'wisconsin',
+    'mi' => 'michigan',
+    'oh' => 'ohio',
+    'fl' => 'florida',
+    'ga' => 'georgia',
+    'sc' => 'south carolina',
+    'nc' => 'north carolina',
+    'va' => 'virginia',
+    'wv' => 'west virginia',
+    'md' => 'maryland',
+    'pa' => 'pennsylvania',
+    'nj' => 'new jersey',
+    'ny' => 'new york',
+    'vt' => 'vermont',
+    'nh' => 'new hampshire',
+    'ri' => 'rhode island',
+    'ma' => 'massachusetts',
+    'me' => 'maine',
+    'ct' => 'connecticut',
+    'de' => 'delaware',
+);
+
+function state_poll_menu(){
+    $items['state_poll'] = array(
+        'title' => 'State Poll',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('state_poll_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['state_poll_result'] = array(
+        'title' => 'Poll Results',
+        'page callback' => 'state_poll result',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function state_poll_form(){
+    $form['state'] = array(
+        '#title' => 'State',
+        '#type'=> 'textfield',
+        '#description' => t('enter your home state'),
+        '#required' => TRUE,
+    );
+    $form['flavor'] = array(
+        '#title' => 'Ice Cream',
+        '#type'=> 'textfield',
+        '#description' => t('enter your favorite ice cream flavor'),
+        '#required' => TRUE,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit your choices',
+    );
+    return $form;
+}
+
+function state_poll_form_validate($form, &$form_state){
+    global $states;
+    $state = strtolower($form_state['values']['state']);
+
+    if(!(array_key_exists($state, $states)) && !(in_array($state, $states))){
+        form_set_error('state', t('hey, that is not a state. Check your spelling, or your 2-letter abbreviation'));
+    }
+
+}
+
+function state_poll_form_submit($form, &$form_state){
+    $state = strtolower($form_state['values']['state']);
+    
+    if (strlen($state) === 2){
+        $state_name = $states[$state];
+    }
+}
