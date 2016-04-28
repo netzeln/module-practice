@@ -22,16 +22,19 @@ function clock_distance_form(){
         '#title' => 'Hours',
         '#type'=> 'textfield',
         '#description' => t('Enter the time for the Hour Hand (1 -12)'),
+        '#element_validate' =>array('element_validate_integer', 'element_validate_range_hour'),
     );
     $form['minute_hand'] = array(
         '#title' => 'Minutes',
         '#type'=> 'textfield',
         '#description' => t('Enter the time for the Minute Hand (0-59)'),
+        '#element_validate' =>array('element_validate_integer', 'element_validate_range'),
     );
     $form['second_hand'] = array(
         '#title' => 'Seconds',
         '#type'=> 'textfield',
         '#description' => t('Enter the time for the Seconds Hand (0-59)'),
+        '#element_validate' =>array('element_validate_integer', 'element_validate_range'),
     );
     $form['submit'] = array(
         '#type' => 'submit',
@@ -40,6 +43,16 @@ function clock_distance_form(){
      return $form;
 }
 
+function element_validate_range($element){
+    if ($element['#value'] >59 || $element['#value'] < 0){
+        form_error($element, t('number must be between 0 and 59'));
+    }
+}
+function element_validate_range_hour($element){
+    if ($element['#value'] >12 || $element['#value'] < 1){
+        form_error($element, t('number must be between 1 and 12'));
+    }
+}
 function clock_distance_form_submit($form, &$form_state){
     $hour = $form_state['values']['hour_hand'];
     $minute = $form_state['values']['minute_hand'];
