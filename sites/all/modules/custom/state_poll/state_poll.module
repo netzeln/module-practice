@@ -63,7 +63,7 @@ function state_poll_menu(){
     );
     $items['state_poll_result'] = array(
         'title' => 'Poll Results',
-        'page callback' => 'state_poll result',
+        'page callback' => 'state_poll_result',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
     );
@@ -102,9 +102,18 @@ function state_poll_form_validate($form, &$form_state){
 }
 
 function state_poll_form_submit($form, &$form_state){
+    global $states;
     $state = strtolower($form_state['values']['state']);
-    
+
     if (strlen($state) === 2){
-        $state_name = $states[$state];
+        $state = $states[$state];
     }
+
+    $_SESSION['state_poll_result'] = ucwords($state);
+    $form_state['redirect'] = 'state_poll_result';
+}
+
+function state_poll_result(){
+    $result = $_SESSION['state_poll_result'];
+    return $result;
 }
