@@ -66,7 +66,7 @@ function rochambeau_player_one_form_validate($form, &$form_state){
 
 
     if  (!(array_key_exists($player_1_choice, $throws)) && !(in_array($player_1_choice, $throws))){
-        form_set_error('player_one_choice', t('That is not a legal choice.' ));
+        form_set_error('player_one_choice', t($form_state['values']['player_one_choice'] . ' is not a legal choice.' ));
     }
 
 }
@@ -95,7 +95,7 @@ function rochambeau_player_two_form_validate($form, &$form_state){
     $player_2_choice = strtolower($form_state['values']['player_two_choice']);
 
     if (!(array_key_exists($player_2_choice, $throws)) && !(in_array($player_2_choice, $throws))){
-        form_set_error('player_two_choice', t('That is not a legal choice.' ));
+        form_set_error('player_two_choice', t($form_state['values']['player_two_choice'] . ' is not a legal choice. Try again.' ));
     }
 }
 
