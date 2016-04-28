@@ -23,22 +23,30 @@ function queen_attack_form(){
         '#title' => "Queen's Column",
         '#type' => 'textfield',
         '#description' => t("Enter the Queen's Starting Column (1 through 8)"),
+        '#element_validate' => array('element_validate_range_chessboard'),
+        '#requred' => TRUE,
     );
 
     $form['queen_row'] = array(
         '#title' => "Queen's Row",
         '#type' => 'textfield',
         '#description' => t("Enter the Queen's Starting Row (1 through 8)"),
+        '#element_validate' => array('element_validate_range_chessboard'),
+        '#requred' => TRUE,
     );
     $form['enemy_column'] = array(
         '#title' => "Enemy's Column",
         '#type' => 'textfield',
-        '#description' => t("Enter the Enemys Starting Column (1 through 8)"),
+        '#description' => t("Enter the Enemy's Starting Column (1 through 8)"),
+        '#element_validate' => array('element_validate_integer','element_validate_range_chessboard'),
+        '#requred' => TRUE,
     );
     $form['enemy_row'] = array(
         '#title' => "Enemy's Row",
         '#type' => 'textfield',
         '#description' => t("Enter the Enemy's Starting Row (1 through 8)"),
+        '#element_validate' => array('element_validate_integer','element_validate_range_chessboard'),
+        '#requred' => TRUE,
     );
     $form['submit'] = array(
         '#type' => 'submit',
@@ -47,6 +55,23 @@ function queen_attack_form(){
 
     return $form;
 
+}
+
+function element_validate_range_chessboard($element){
+    if($element['#value'] > 8 ||$element['#value'] < 1 ){
+        form_error($element, t('That Square would not exist; Chessboards have 8 Rows and 8 Columns.'));
+    }
+}
+
+function queen_attack_form_validate($form, &$form_state){
+    if(($form_state['values']['queen_column'] === $form_state['values']['enemy_column'])  && ($form_state['values']['queen_row'] === $form_state['values']['enemy_row'])){
+        $col = $form_state['values']['queen_column'];
+        $row =$form_state['values']['queen_row'];
+        form_set_error('queen_column', t('The Queen and Enemy Can Not Share The Square at: Column - '. $col . ', Row - '. $row));
+        form_set_error('queen_row', t('Change'));
+        form_set_error('enemy_column', t('at least'));
+        form_set_error('enemy_row', t('one position'));
+    }
 }
 
 function queen_attack_form_submit($form, &$form_state){
