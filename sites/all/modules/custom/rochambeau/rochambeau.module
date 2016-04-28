@@ -39,9 +39,9 @@ function rochambeau_menu(){
 function rochambeau_player_one_form(){
     $form['player_one_choice'] = array(
         '#title' => 'Player One',
-        '#type' => 'textfield',
+        '#type' => 'password',
         '#required' => TRUE,
-        '#description' => t('Choose your Weapon'),
+        '#description' => t('Choose your Weapon. (shortcuts: (r), (p), (s))'),
     );
     $form['submit'] = array(
         '#type' => 'submit',
@@ -76,9 +76,9 @@ function rochambeau_player_one_form_validate($form, &$form_state){
 function rochambeau_player_two_form(){
     $form['player_two_choice'] = array(
         '#title' => 'Player Two',
-        '#type' => 'textfield',
+        '#type' => 'password',
         '#required' => TRUE,
-        '#description' => t('Choose your Weapon'),
+        '#description' => t('Choose your Weapon. (shortcuts: (r), (p), (s))'),
     );
 
     $form['submit'] = array(
